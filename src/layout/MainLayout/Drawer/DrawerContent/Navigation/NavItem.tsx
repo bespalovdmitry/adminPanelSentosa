@@ -1,6 +1,5 @@
 import { forwardRef, useEffect, ForwardRefExoticComponent, RefAttributes } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -11,7 +10,8 @@ import { activeItem } from 'store/reducers/menu';
 
 // types
 import { LinkTarget, NavItemType } from 'types/menu';
-import { RootStateProps } from 'types/root';
+import {useAppSelector} from "../../../../../hooks/useAppSelector";
+import {useAppDispatch} from "../../../../../hooks/useAppDispatch";
 
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 
@@ -22,8 +22,8 @@ interface Props {
 
 const NavItem = ({ item, level }: Props) => {
   const theme = useTheme();
-  const dispatch = useDispatch();
-  const menu = useSelector((state: RootStateProps) => state.menu);
+  const dispatch = useAppDispatch();
+  const menu = useAppSelector((state) => state.reducers.menu);
   const { drawerOpen, openItem } = menu;
 
   let itemTarget: LinkTarget = '_self';

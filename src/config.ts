@@ -17,6 +17,7 @@ export const FIREBASE_API = {
   measurementId: 'G-3DBCYRZ2QM'
 };
 
+
 // ==============================|| THEME CONFIG  ||============================== //
 
 const config: DefaultConfigProps = {

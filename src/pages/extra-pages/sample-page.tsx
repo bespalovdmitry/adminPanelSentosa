@@ -1,20 +1,59 @@
+import {useEffect} from 'react';
+
 // material-ui
-import { Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 
 // project import
-import MainCard from 'components/MainCard';
+import ExpandingSubTable from 'sections/tables/react-table/ExpandingSubTable';
+import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {useAppSelector} from "../../hooks/useAppSelector";
+import {fetchDataTC} from "../../store/reducers/visasReportSlice";
+import {ApplicantsDataType} from "../../models/applicantModel";
 
-// ==============================|| SAMPLE PAGE ||============================== //
+// ==============================|| REACT TABLE - EXPANDING ||============================== //
+export type Row = {
+    id: number
+    applicantsData:ApplicantsDataType[],
+    file:any[],
+    fullPrice: number,
+    numberOfApplicants:string,
+    service: string,
+    email: string,
+    phone: string,
+    visaStatus: string,
+    visitPurpose:string,
+}
 
-const SamplePage = () => (
-  <MainCard title="Sample Card">
-    <Typography variant="body2">
-      Lorem ipsum dolor sit amen, consenter nipissing eli, sed do elusion tempos incident ut laborers et doolie magna alissa. Ut enif ad
-      minim venice, quin nostrum exercitation illampu laborings nisi ut liquid ex ea commons construal. Duos aube grue dolor in reprehended
-      in voltage veil esse colum doolie eu fujian bulla parian. Exceptive sin ocean cuspidate non president, sunk in culpa qui officiate
-      descent molls anim id est labours.
-    </Typography>
-  </MainCard>
-);
+const Expanding = () => {
+    const dispatch = useAppDispatch()
+    const data = useAppSelector(state => state.reducers.visasReportSlice)
+    useEffect(() => {
+        dispatch(fetchDataTC())
+    }, [dispatch])
 
-export default SamplePage;
+    let mappedData:Row[] = data.map((d, i) => {
+        return {
+            id: i,
+            appDate: d.appDate,
+            applicantsData: d.applicantsData,
+            file: d.file,
+            fullPrice: d.fullPrice,
+            numberOfApplicants: d.numberOfApplicants,
+            service: d.service,
+            email: d.email,
+            phone: d.tel,
+            visaStatus: d.visa_status,
+            visitPurpose: d.visitPurpose,
+            uid: d.uid
+        }
+    })
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12}>
+                <ExpandingSubTable data={mappedData} />
+            </Grid>
+        </Grid>
+    );
+};
+
+export default Expanding;

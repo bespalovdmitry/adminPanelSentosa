@@ -1,5 +1,3 @@
-import { useSelector } from 'react-redux';
-
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Box, List, Typography } from '@mui/material';
@@ -10,7 +8,7 @@ import NavCollapse from './NavCollapse';
 
 // types
 import { NavItemType } from 'types/menu';
-import { RootStateProps } from 'types/root';
+import {useAppSelector} from "../../../../../hooks/useAppSelector";
 
 // ==============================|| NAVIGATION - LIST GROUP ||============================== //
 
@@ -20,7 +18,7 @@ interface Props {
 
 const NavGroup = ({ item }: Props) => {
   const theme = useTheme();
-  const menu = useSelector((state: RootStateProps) => state.menu);
+  const menu = useAppSelector((state) => state.reducers.menu);
   const { drawerOpen } = menu;
 
   const navCollapse = item.children?.map((menuItem) => {

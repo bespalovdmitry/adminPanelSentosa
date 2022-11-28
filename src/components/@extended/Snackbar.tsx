@@ -1,5 +1,4 @@
 import { SyntheticEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { Alert, Button, Fade, Grow, Slide, SlideProps } from '@mui/material';
@@ -11,8 +10,10 @@ import IconButton from './IconButton';
 // assets
 import { CloseOutlined } from '@ant-design/icons';
 
-import { KeyedObject, RootStateProps } from 'types/root';
+import { KeyedObject } from 'types/root';
 import { closeSnackbar } from 'store/reducers/snackbar';
+import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {useAppSelector} from "../../hooks/useAppSelector";
 
 // animation function
 function TransitionSlideLeft(props: SlideProps) {
@@ -48,8 +49,8 @@ const animation: KeyedObject = {
 // ==============================|| SNACKBAR ||============================== //
 
 const Snackbar = () => {
-  const dispatch = useDispatch();
-  const snackbar = useSelector((state: RootStateProps) => state.snackbar);
+  const dispatch = useAppDispatch();
+  const snackbar = useAppSelector((state) => state.reducers.snackbar);
   const { actionButton, anchorOrigin, alert, close, message, open, transition, variant } = snackbar;
 
   const handleClose = (event: SyntheticEvent | Event, reason?: string) => {

@@ -1,19 +1,15 @@
-import { useSelector } from 'react-redux';
-
 // material-ui
 import { Box, Typography } from '@mui/material';
-
-// types
-import { RootStateProps } from 'types/root';
 
 // project import
 import NavGroup from './NavGroup';
 import menuItem from 'menu-items';
+import {useAppSelector} from "../../../../../hooks/useAppSelector";
 
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 
 const Navigation = () => {
-  const menu = useSelector((state: RootStateProps) => state.menu);
+  const menu = useAppSelector((state) => state.reducers.menu);
   const { drawerOpen } = menu;
 
   const navGroups = menuItem.items.map((item) => {

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -15,8 +14,9 @@ import useConfig from 'hooks/useConfig';
 import Breadcrumbs from 'components/@extended/Breadcrumbs';
 
 // types
-import { RootStateProps } from 'types/root';
 import { openDrawer } from 'store/reducers/menu';
+import {useAppSelector} from "../../hooks/useAppSelector";
+import {useAppDispatch} from "../../hooks/useAppDispatch";
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
@@ -25,9 +25,9 @@ const MainLayout = () => {
   const matchDownLG = useMediaQuery(theme.breakpoints.down('xl'));
 
   const { container, miniDrawer } = useConfig();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const menu = useSelector((state: RootStateProps) => state.menu);
+  const menu = useAppSelector((state) => state.reducers.menu);
   const { drawerOpen } = menu;
 
   // drawer toggler
